@@ -5,6 +5,8 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 
+import { AnalysisData } from "./EmailOutput";
+
 // Form validation schema supporting the Career Matcher fields
 const formSchema = z.object({
   recipientName: z.string().min(1, "Recipient name is required"),
@@ -23,7 +25,7 @@ const formSchema = z.object({
 type FormData = z.infer<typeof formSchema>;
 
 interface EmailFormProps {
-  onAnalysisGenerated: (analysis: unknown) => void;
+  onAnalysisGenerated: (analysis: AnalysisData) => void;
 }
 
 export default function EmailForm({ onAnalysisGenerated }: EmailFormProps) {
