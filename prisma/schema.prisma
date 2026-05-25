@@ -1,0 +1,41 @@
+// Prisma schema file
+// Learn more: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  // DATABASE_URL should be set in your .env file
+  // Format: postgresql://USER:PASSWORD@HOST:PORT/DATABASE
+  url      = env("DATABASE_URL")
+}
+
+// User model — stores registered users
+model User {
+  id        String   @id @default(cuid())
+  name      String
+  email     String   @unique
+  password  String   // bcrypt hashed password
+  createdAt DateTime @default(now())
+
+  // Relation: one user can have many generated emails
+  emails GeneratedEmail[]
+}
+
+// GeneratedEmail model — stores each AI-generated email
+model GeneratedEmail {
+  id               String   @id @default(cuid())
+  userId           String
+  recipientName    String
+  companyName      String
+  userRole         String
+  purpose          String
+  tone             String
+  generatedContent String   @db.Text
+  createdAt        DateTime @default(now())
+
+  // Relation back to user
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
