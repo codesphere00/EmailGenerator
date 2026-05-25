@@ -9,7 +9,7 @@ const secret = new TextEncoder().encode(
 export interface JWTPayload {
   userId: string;
   email: string;
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 // Sign a new JWT token — called when user logs in

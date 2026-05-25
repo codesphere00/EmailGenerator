@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-interface AnalysisData {
+export interface AnalysisData {
   candidate_analysis: {
     name: string;
     skills: string[];
@@ -42,7 +42,6 @@ export default function EmailOutput({ analysis }: EmailOutputProps) {
 
   const {
     candidate_analysis,
-    job_analysis,
     match_analysis,
     cold_email,
     follow_up_email,

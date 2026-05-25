@@ -23,7 +23,7 @@ const formSchema = z.object({
 type FormData = z.infer<typeof formSchema>;
 
 interface EmailFormProps {
-  onAnalysisGenerated: (analysis: any) => void;
+  onAnalysisGenerated: (analysis: unknown) => void;
 }
 
 export default function EmailForm({ onAnalysisGenerated }: EmailFormProps) {

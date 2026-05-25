@@ -144,7 +144,7 @@ Return the response in JSON format matching this schema exactly:
     ];
 
     let generatedText = "";
-    let lastError: any = null;
+    let lastError: Error | null = null;
 
     for (const modelName of modelsToTry) {
       try {
@@ -162,9 +162,10 @@ Return the response in JSON format matching this schema exactly:
           console.log(`Successfully generated analysis using: ${modelName}`);
           break;
         }
-      } catch (err: any) {
-        console.warn(`Model ${modelName} failed:`, err.message || err);
-        lastError = err;
+      } catch (err: unknown) {
+        const error = err as Error;
+        console.warn(`Model ${modelName} failed:`, error.message || error);
+        lastError = error;
       }
     }
 
@@ -182,7 +183,7 @@ Return the response in JSON format matching this schema exactly:
       // Remove potential markdown code blocks if any
       const cleanedText = generatedText.replace(/^```json\s*/i, "").replace(/```$/, "").trim();
       parsedData = JSON.parse(cleanedText);
-    } catch (e) {
+    } catch {
       console.error("Failed to parse Gemini JSON output:", generatedText);
       return NextResponse.json(
         { error: "AI model returned invalid JSON structure. Please try again." },

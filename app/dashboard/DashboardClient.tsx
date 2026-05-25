@@ -4,11 +4,11 @@
 
 import { useState } from "react";
 import EmailForm from "@/components/EmailForm";
-import EmailOutput from "@/components/EmailOutput";
+import EmailOutput, { AnalysisData } from "@/components/EmailOutput";
 
 export default function DashboardClient() {
   // Store the structured JSON career analysis object
-  const [analysisData, setAnalysisData] = useState<any | null>(null);
+  const [analysisData, setAnalysisData] = useState<AnalysisData | null>(null);
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
